@@ -41,7 +41,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+  <body>
     
     <div class="container-fluid" id="banner"></div>
 
@@ -64,7 +64,11 @@
   </div>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 2H0" stroke="black" stroke-width="3"/>
+  <path d="M20 10H0" stroke="black" stroke-width="3"/>
+  <path d="M20 18H0" stroke="black" stroke-width="3"/>
+</svg>
   </button>
 
   
@@ -130,9 +134,33 @@
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
             <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+              <div class="sidebar-start-items"><form
+  class="search"
+  action="../search.html"
+  method="get"
+>
+  <input
+    type="search"
+    name="q"
+    placeholder="search"
+    aria-label="search"
+    autocomplete="off"
+  />
+
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8.32001 7.67998L0.746674 15.2533M10.6667 9.59998C13.0133 9.59998 14.9333 7.67998 14.9333 5.33332C14.9333 2.98665 13.0133 1.06665 10.6667 1.06665C8.32001 1.06665 6.40001 2.98665 6.40001 5.33332C6.40001 7.67998 8.32001 9.59998 10.6667 9.59998Z"
+      stroke="black"
+      stroke-width="2"
+    />
+  </svg>
+  </button>
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
@@ -208,7 +236,7 @@
               <div class="toc-item">
                 
 <div class="tocsection onthispage mt-5 pt-1 pb-3">
-    <i class="fas fa-list"></i> On this page
+    On this page
 </div>
 
 <nav id="bd-toc-nav">
@@ -317,8 +345,8 @@ more than a single contribution type).</p>
 manifest formats, though YAML is the “default” and more common format.</p>
 </div>
 <div class="tabbed-set docutils">
-<input checked="checked" id="40e096a0-881a-4348-94cb-b04f5c896390" name="4360f788-6bb4-4b1b-b393-596a345e494c" type="radio">
-</input><label class="tabbed-label" for="40e096a0-881a-4348-94cb-b04f5c896390">
+<input checked="checked" id="914b3227-2c6d-4824-968b-ff336b6aac42" name="cd7b865a-255a-4367-8ced-7e7fde75e28a" type="radio">
+</input><label class="tabbed-label" for="914b3227-2c6d-4824-968b-ff336b6aac42">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin</span><span class="w"></span>
 <span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Example Plugin</span><span class="w"></span>
@@ -389,8 +417,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="dbd5809c-22c0-4755-ba36-93b6a89d632c" name="4360f788-6bb4-4b1b-b393-596a345e494c" type="radio">
-</input><label class="tabbed-label" for="dbd5809c-22c0-4755-ba36-93b6a89d632c">
+<input id="5b3cfffb-5d95-4582-b28f-d618ae2ddc0f" name="cd7b865a-255a-4367-8ced-7e7fde75e28a" type="radio">
+</input><label class="tabbed-label" for="5b3cfffb-5d95-4582-b28f-d618ae2ddc0f">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Example Plugin&#39;</span><span class="w"></span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin&#39;</span><span class="w"></span>
@@ -493,7 +521,19 @@ toml</label><div class="tabbed-content docutils">
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="first_plugin.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
+        <svg
+            width="10"
+            height="16"
+            viewBox="0 0 10 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M8.92892 1L1.85786 8.07107L8.92892 15.1421"
+                stroke="black"
+                stroke-width="2"
+            />
+        </svg>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">Your First Plugin</p>
@@ -504,7 +544,20 @@ toml</label><div class="tabbed-content docutils">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Contributions Reference</p>
     </div>
-    <i class="fas fa-angle-right"></i>
+
+    <svg
+        width="10"
+        height="16"
+        viewBox="0 0 10 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M1.07108 15L8.14214 7.92893L1.07108 0.857864"
+            stroke="black"
+            stroke-width="2"
+        />
+    </svg>
     </a>
 </div>
               
@@ -516,7 +569,8 @@ toml</label><div class="tabbed-content docutils">
 
     <script src="../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">
   
-  <a href="/">
+    <div class="footer-item">
+      <a href="/">
   <svg
   width="30"
   height="30"
@@ -780,6 +834,26 @@ toml</label><div class="tabbed-content docutils">
 </svg>
   <span>Zulip</span>
 </a>
+    </div>
+  
+    <div class="footer-item">
+      <div class="napari-copyright">
+  <p class="copyright">
+        Copyright 2022, The napari team<br>
+  </p>
+
+  <div class="sphinx-version">
+    <div class="sphinx-link">
+      <span>Created using</span>
+      <a href="http://sphinx-doc.org/">Sphinx</a>
+    </div>
+
+    
+      <span>4.4.0</span>
+    
+  </div>
+</div>
+    </div>
   
 </footer>
   </body>

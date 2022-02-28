@@ -41,7 +41,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+  <body>
     
     <div class="container-fluid" id="banner"></div>
 
@@ -64,7 +64,11 @@
   </div>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 2H0" stroke="black" stroke-width="3"/>
+  <path d="M20 10H0" stroke="black" stroke-width="3"/>
+  <path d="M20 18H0" stroke="black" stroke-width="3"/>
+</svg>
   </button>
 
   
@@ -130,9 +134,33 @@
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
             <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+              <div class="sidebar-start-items"><form
+  class="search"
+  action="../search.html"
+  method="get"
+>
+  <input
+    type="search"
+    name="q"
+    placeholder="search"
+    aria-label="search"
+    autocomplete="off"
+  />
+
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8.32001 7.67998L0.746674 15.2533M10.6667 9.59998C13.0133 9.59998 14.9333 7.67998 14.9333 5.33332C14.9333 2.98665 13.0133 1.06665 10.6667 1.06665C8.32001 1.06665 6.40001 2.98665 6.40001 5.33332C6.40001 7.67998 8.32001 9.59998 10.6667 9.59998Z"
+      stroke="black"
+      stroke-width="2"
+    />
+  </svg>
+  </button>
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
@@ -208,7 +236,7 @@
               <div class="toc-item">
                 
 <div class="tocsection onthispage mt-5 pt-1 pb-3">
-    <i class="fas fa-list"></i> On this page
+    On this page
 </div>
 
 <nav id="bd-toc-nav">
@@ -388,8 +416,8 @@ Fully qualified name to a callable python object implementing this command. This
 <div class="section" id="commands-example">
 <h3>Commands example<a class="headerlink" href="#commands-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="fb7b6494-0eac-4efe-b396-7278a4eaf538" name="4378c1bf-11f4-4d54-8baf-342683293cc8" type="radio">
-</input><label class="tabbed-label" for="fb7b6494-0eac-4efe-b396-7278a4eaf538">
+<input checked="checked" id="89aed119-ec86-41c0-b976-08661fbefe4d" name="dc88b556-eddc-47a6-9b67-512793e8c470" type="radio">
+</input><label class="tabbed-label" for="89aed119-ec86-41c0-b976-08661fbefe4d">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -398,8 +426,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="0942c69c-b296-467e-bf0d-1a7cf5246779" name="4378c1bf-11f4-4d54-8baf-342683293cc8" type="radio">
-</input><label class="tabbed-label" for="0942c69c-b296-467e-bf0d-1a7cf5246779">
+<input id="d017249b-5d38-487c-98ce-96b0ce91de9e" name="dc88b556-eddc-47a6-9b67-512793e8c470" type="radio">
+</input><label class="tabbed-label" for="d017249b-5d38-487c-98ce-96b0ce91de9e">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.hello_world&#39;</span><span class="w"></span>
@@ -430,8 +458,8 @@ Whether this reader accepts directories</p></li>
 <div class="section" id="readers-example">
 <h3>Readers example<a class="headerlink" href="#readers-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="5c9014c0-0fda-4d48-a7e0-e1e8dc26d6f1" name="78f5e9f5-a90b-432e-8551-fb562fd4811c" type="radio">
-</input><label class="tabbed-label" for="5c9014c0-0fda-4d48-a7e0-e1e8dc26d6f1">
+<input checked="checked" id="63c0fcea-9049-4bbc-86b6-efe3ac9dcdb4" name="03c268ca-11e6-422e-9682-a8f342337b42" type="radio">
+</input><label class="tabbed-label" for="63c0fcea-9049-4bbc-86b6-efe3ac9dcdb4">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -446,8 +474,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="14d1e08e-870c-42e5-b669-37d615c2b4c8" name="78f5e9f5-a90b-432e-8551-fb562fd4811c" type="radio">
-</input><label class="tabbed-label" for="14d1e08e-870c-42e5-b669-37d615c2b4c8">
+<input id="a3a9418d-7c3f-408c-8b63-ee46e679a9c9" name="03c268ca-11e6-422e-9682-a8f342337b42" type="radio">
+</input><label class="tabbed-label" for="a3a9418d-7c3f-408c-8b63-ee46e679a9c9">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.read_xyz&#39;</span><span class="w"></span>
@@ -488,8 +516,8 @@ Brief text used to describe this writer when presented. Empty by default. When p
 <div class="section" id="writers-example">
 <h3>Writers example<a class="headerlink" href="#writers-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="e6316654-0f21-4f61-a250-7c9186a852b3" name="f2cbdc96-c634-41a2-906e-49405fbb7e1c" type="radio">
-</input><label class="tabbed-label" for="e6316654-0f21-4f61-a250-7c9186a852b3">
+<input checked="checked" id="8e5b104f-fa98-4c8b-9a83-38e046e23b75" name="1490a449-9d24-4aff-8286-695aded3d747" type="radio">
+</input><label class="tabbed-label" for="8e5b104f-fa98-4c8b-9a83-38e046e23b75">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -505,8 +533,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="f6a66a81-1de0-41df-9664-76c0b4f723bb" name="f2cbdc96-c634-41a2-906e-49405fbb7e1c" type="radio">
-</input><label class="tabbed-label" for="f6a66a81-1de0-41df-9664-76c0b4f723bb">
+<input id="78f61fb4-7d16-4e41-bd60-e2e16f88be0d" name="1490a449-9d24-4aff-8286-695aded3d747" type="radio">
+</input><label class="tabbed-label" for="78f61fb4-7d16-4e41-bd60-e2e16f88be0d">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.write_points&#39;</span><span class="w"></span>
@@ -548,8 +576,8 @@ If true, a widget will be autogenerated from the signature of the associated com
 <div class="section" id="widgets-example">
 <h3>Widgets example<a class="headerlink" href="#widgets-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="38721e0b-1cfd-4731-bff2-282bbe785912" name="41e15d43-53f4-4ae3-b0f7-08bd5799e9df" type="radio">
-</input><label class="tabbed-label" for="38721e0b-1cfd-4731-bff2-282bbe785912">
+<input checked="checked" id="60fbdba9-8fe6-4a8f-80c2-e9a073093342" name="df6da7ca-3206-4c5a-ac49-995acc4e2a08" type="radio">
+</input><label class="tabbed-label" for="60fbdba9-8fe6-4a8f-80c2-e9a073093342">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -573,8 +601,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="343a7b55-8825-4e87-99ad-71ea5c3acc4e" name="41e15d43-53f4-4ae3-b0f7-08bd5799e9df" type="radio">
-</input><label class="tabbed-label" for="343a7b55-8825-4e87-99ad-71ea5c3acc4e">
+<input id="da3abaa7-cf5c-4f01-ab94-3d9d2c807b6b" name="df6da7ca-3206-4c5a-ac49-995acc4e2a08" type="radio">
+</input><label class="tabbed-label" for="da3abaa7-cf5c-4f01-ab94-3d9d2c807b6b">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.my_widget&#39;</span><span class="w"></span>
@@ -647,8 +675,8 @@ Name of plugin to use to open URI</p></li>
 <div class="section" id="sample-data-example">
 <h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="384cca6e-57e9-4288-9567-972f1ae00c14" name="73d7daec-07eb-4eb0-9797-3d7070312f56" type="radio">
-</input><label class="tabbed-label" for="384cca6e-57e9-4288-9567-972f1ae00c14">
+<input checked="checked" id="c91215f5-2e38-4f33-95f9-b898ababd868" name="d60698fe-611f-42dc-adc0-12d34a0b9092" type="radio">
+</input><label class="tabbed-label" for="c91215f5-2e38-4f33-95f9-b898ababd868">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"></span>
@@ -665,8 +693,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="9532247e-4ea7-4519-beac-b6b4e3db0a07" name="73d7daec-07eb-4eb0-9797-3d7070312f56" type="radio">
-</input><label class="tabbed-label" for="9532247e-4ea7-4519-beac-b6b4e3db0a07">
+<input id="49577008-2689-4a70-8644-a4323ebcb1b1" name="d60698fe-611f-42dc-adc0-12d34a0b9092" type="radio">
+</input><label class="tabbed-label" for="49577008-2689-4a70-8644-a4323ebcb1b1">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.commands]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin.data.fractal&#39;</span><span class="w"></span>
@@ -713,8 +741,8 @@ dark/light theme colors.</p>
 <div class="section" id="themes-example">
 <h3>Themes example<a class="headerlink" href="#themes-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="6dc6b839-cc6c-4303-a1cd-187b633def33" name="fbb4924a-f2e5-4afb-98db-fe90db75250a" type="radio">
-</input><label class="tabbed-label" for="6dc6b839-cc6c-4303-a1cd-187b633def33">
+<input checked="checked" id="12f87c34-99b5-4e16-a7d8-3946080cd0db" name="992d073d-eabe-4c5e-9e26-bf4ca929995a" type="radio">
+</input><label class="tabbed-label" for="12f87c34-99b5-4e16-a7d8-3946080cd0db">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">contributions</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">themes</span><span class="p">:</span><span class="w"></span>
@@ -735,8 +763,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="08c94cf8-2968-4ae5-a2a7-7e9190cf204e" name="fbb4924a-f2e5-4afb-98db-fe90db75250a" type="radio">
-</input><label class="tabbed-label" for="08c94cf8-2968-4ae5-a2a7-7e9190cf204e">
+<input id="ea90daf4-8d5f-4e19-bb08-33f3a851c2e3" name="992d073d-eabe-4c5e-9e26-bf4ca929995a" type="radio">
+</input><label class="tabbed-label" for="ea90daf4-8d5f-4e19-bb08-33f3a851c2e3">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[[contributions.themes]]</span><span class="w"></span>
 <span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;monokai&#39;</span><span class="w"></span>
@@ -769,7 +797,19 @@ toml</label><div class="tabbed-content docutils">
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="manifest.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
+        <svg
+            width="10"
+            height="16"
+            viewBox="0 0 10 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M8.92892 1L1.85786 8.07107L8.92892 15.1421"
+                stroke="black"
+                stroke-width="2"
+            />
+        </svg>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">Manifest Reference</p>
@@ -780,7 +820,20 @@ toml</label><div class="tabbed-content docutils">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Contribution Guides</p>
     </div>
-    <i class="fas fa-angle-right"></i>
+
+    <svg
+        width="10"
+        height="16"
+        viewBox="0 0 10 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M1.07108 15L8.14214 7.92893L1.07108 0.857864"
+            stroke="black"
+            stroke-width="2"
+        />
+    </svg>
     </a>
 </div>
               
@@ -792,7 +845,8 @@ toml</label><div class="tabbed-content docutils">
 
     <script src="../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">
   
-  <a href="/">
+    <div class="footer-item">
+      <a href="/">
   <svg
   width="30"
   height="30"
@@ -1056,6 +1110,26 @@ toml</label><div class="tabbed-content docutils">
 </svg>
   <span>Zulip</span>
 </a>
+    </div>
+  
+    <div class="footer-item">
+      <div class="napari-copyright">
+  <p class="copyright">
+        Copyright 2022, The napari team<br>
+  </p>
+
+  <div class="sphinx-version">
+    <div class="sphinx-link">
+      <span>Created using</span>
+      <a href="http://sphinx-doc.org/">Sphinx</a>
+    </div>
+
+    
+      <span>4.4.0</span>
+    
+  </div>
+</div>
+    </div>
   
 </footer>
   </body>

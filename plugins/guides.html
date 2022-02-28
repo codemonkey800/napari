@@ -41,7 +41,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+  <body>
     
     <div class="container-fluid" id="banner"></div>
 
@@ -64,7 +64,11 @@
   </div>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 2H0" stroke="black" stroke-width="3"/>
+  <path d="M20 10H0" stroke="black" stroke-width="3"/>
+  <path d="M20 18H0" stroke="black" stroke-width="3"/>
+</svg>
   </button>
 
   
@@ -130,9 +134,33 @@
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
             <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+              <div class="sidebar-start-items"><form
+  class="search"
+  action="../search.html"
+  method="get"
+>
+  <input
+    type="search"
+    name="q"
+    placeholder="search"
+    aria-label="search"
+    autocomplete="off"
+  />
+
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8.32001 7.67998L0.746674 15.2533M10.6667 9.59998C13.0133 9.59998 14.9333 7.67998 14.9333 5.33332C14.9333 2.98665 13.0133 1.06665 10.6667 1.06665C8.32001 1.06665 6.40001 2.98665 6.40001 5.33332C6.40001 7.67998 8.32001 9.59998 10.6667 9.59998Z"
+      stroke="black"
+      stroke-width="2"
+    />
+  </svg>
+  </button>
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
@@ -208,7 +236,7 @@
               <div class="toc-item">
                 
 <div class="tocsection onthispage mt-5 pt-1 pb-3">
-    <i class="fas fa-list"></i> On this page
+    On this page
 </div>
 
 <nav id="bd-toc-nav">
@@ -365,8 +393,8 @@ otherwise, they will not be invoked when a directory is passed to <code class="d
 <div class="section" id="reader-example">
 <h3>Reader example<a class="headerlink" href="#reader-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="4d84124f-edb6-4775-845e-bf70d016909a" name="1dd00055-481c-4a96-bd8d-9fedf338097d" type="radio">
-</input><label class="tabbed-label" for="4d84124f-edb6-4775-845e-bf70d016909a">
+<input checked="checked" id="1e398739-50fc-44d5-ab10-cfc4f9135dc6" name="8ddea9bc-8535-45d2-93ad-c9f40d0ffd27" type="radio">
+</input><label class="tabbed-label" for="1e398739-50fc-44d5-ab10-cfc4f9135dc6">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -405,8 +433,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="4f41a34c-df99-438f-beff-81dc84cb2d93" name="1dd00055-481c-4a96-bd8d-9fedf338097d" type="radio">
-</input><label class="tabbed-label" for="4f41a34c-df99-438f-beff-81dc84cb2d93">
+<input id="90c7b9ab-7a08-4bc6-bc3e-1cc72e50b1ec" name="8ddea9bc-8535-45d2-93ad-c9f40d0ffd27" type="radio">
+</input><label class="tabbed-label" for="90c7b9ab-7a08-4bc6-bc3e-1cc72e50b1ec">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -530,8 +558,8 @@ and a <code class="docutils literal notranslate"><span class="pre">vectors</span
 <div class="section" id="writer-example">
 <h3>Writer example<a class="headerlink" href="#writer-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="afd378a7-dbf9-41de-ac6d-f3bbe951dfef" name="2d08eaf1-10b8-4377-a174-60a3c948dae6" type="radio">
-</input><label class="tabbed-label" for="afd378a7-dbf9-41de-ac6d-f3bbe951dfef">
+<input checked="checked" id="5eaf664c-aadf-4cce-ab1c-26917d9c3220" name="a2c75406-d264-4774-aaae-4d001ebef8da" type="radio">
+</input><label class="tabbed-label" for="5eaf664c-aadf-4cce-ab1c-26917d9c3220">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -560,8 +588,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="2f16403c-5fad-49b1-9b65-2b9bce2d79cd" name="2d08eaf1-10b8-4377-a174-60a3c948dae6" type="radio">
-</input><label class="tabbed-label" for="2f16403c-5fad-49b1-9b65-2b9bce2d79cd">
+<input id="5ac11e6b-32d7-4b7d-81c9-7a5e19964320" name="a2c75406-d264-4774-aaae-4d001ebef8da" type="radio">
+</input><label class="tabbed-label" for="5ac11e6b-32d7-4b7d-81c9-7a5e19964320">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -651,8 +679,8 @@ field in the <a class="reference external" href="./contributions.html#contributi
 <div class="section" id="widget-example">
 <h3>Widget example<a class="headerlink" href="#widget-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="38b0cb72-aa1d-478d-865d-229aac40f867" name="940688b7-c823-4972-91a3-ad02f4869f82" type="radio">
-</input><label class="tabbed-label" for="38b0cb72-aa1d-478d-865d-229aac40f867">
+<input checked="checked" id="07fd9131-c3f9-43d5-b1d5-b2361773c3ba" name="0617c797-2b15-4d7a-9d0e-bf648b3979a8" type="radio">
+</input><label class="tabbed-label" for="07fd9131-c3f9-43d5-b1d5-b2361773c3ba">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -712,8 +740,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="31d2d6ee-3a19-45e0-8a21-decb4ca2e53b" name="940688b7-c823-4972-91a3-ad02f4869f82" type="radio">
-</input><label class="tabbed-label" for="31d2d6ee-3a19-45e0-8a21-decb4ca2e53b">
+<input id="287dc367-fc30-4146-b002-fd89f1485ebd" name="0617c797-2b15-4d7a-9d0e-bf648b3979a8" type="radio">
+</input><label class="tabbed-label" for="287dc367-fc30-4146-b002-fd89f1485ebd">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -783,8 +811,8 @@ or <strong>Sample Data Function</strong> that generates layer data on demand.</p
 <div class="section" id="sample-data-example">
 <h3>Sample Data example<a class="headerlink" href="#sample-data-example" title="Permalink to this headline">¶</a></h3>
 <div class="tabbed-set docutils">
-<input checked="checked" id="d75f4bfa-5fc5-4319-9e13-f42cadb71a77" name="d57cf25e-3b22-4b8e-901a-691d8babe954" type="radio">
-</input><label class="tabbed-label" for="d75f4bfa-5fc5-4319-9e13-f42cadb71a77">
+<input checked="checked" id="7a863b4f-3419-4c2b-8a1e-6cfef63ee031" name="daee2ed4-0a69-4ef5-8865-cdd3f26a759e" type="radio">
+</input><label class="tabbed-label" for="7a863b4f-3419-4c2b-8a1e-6cfef63ee031">
 npe2</label><div class="tabbed-content docutils">
 <p><strong>python implementation</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># example_plugin.some_module</span>
@@ -815,8 +843,8 @@ for field details.</p>
 </pre></div>
 </div>
 </div>
-<input id="e1e930df-d7b1-46bb-8fa0-0f8a5ade63cd" name="d57cf25e-3b22-4b8e-901a-691d8babe954" type="radio">
-</input><label class="tabbed-label" for="e1e930df-d7b1-46bb-8fa0-0f8a5ade63cd">
+<input id="31416053-ff98-4459-a85a-f371e1645e66" name="daee2ed4-0a69-4ef5-8865-cdd3f26a759e" type="radio">
+</input><label class="tabbed-label" for="31416053-ff98-4459-a85a-f371e1645e66">
 napari-plugin-engine</label><div class="tabbed-content docutils">
 <div class="admonition-deprecated admonition">
 <p class="admonition-title">Deprecated!</p>
@@ -970,7 +998,19 @@ tuple from a given layer</p>
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="contributions.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
+        <svg
+            width="10"
+            height="16"
+            viewBox="0 0 10 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M8.92892 1L1.85786 8.07107L8.92892 15.1421"
+                stroke="black"
+                stroke-width="2"
+            />
+        </svg>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">Contributions Reference</p>
@@ -981,7 +1021,20 @@ tuple from a given layer</p>
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Test and Deploy</p>
     </div>
-    <i class="fas fa-angle-right"></i>
+
+    <svg
+        width="10"
+        height="16"
+        viewBox="0 0 10 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M1.07108 15L8.14214 7.92893L1.07108 0.857864"
+            stroke="black"
+            stroke-width="2"
+        />
+    </svg>
     </a>
 </div>
               
@@ -993,7 +1046,8 @@ tuple from a given layer</p>
 
     <script src="../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">
   
-  <a href="/">
+    <div class="footer-item">
+      <a href="/">
   <svg
   width="30"
   height="30"
@@ -1257,6 +1311,26 @@ tuple from a given layer</p>
 </svg>
   <span>Zulip</span>
 </a>
+    </div>
+  
+    <div class="footer-item">
+      <div class="napari-copyright">
+  <p class="copyright">
+        Copyright 2022, The napari team<br>
+  </p>
+
+  <div class="sphinx-version">
+    <div class="sphinx-link">
+      <span>Created using</span>
+      <a href="http://sphinx-doc.org/">Sphinx</a>
+    </div>
+
+    
+      <span>4.4.0</span>
+    
+  </div>
+</div>
+    </div>
   
 </footer>
   </body>

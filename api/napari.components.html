@@ -41,7 +41,7 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+  <body>
     
     <div class="container-fluid" id="banner"></div>
 
@@ -64,7 +64,11 @@
   </div>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 2H0" stroke="black" stroke-width="3"/>
+  <path d="M20 10H0" stroke="black" stroke-width="3"/>
+  <path d="M20 18H0" stroke="black" stroke-width="3"/>
+</svg>
   </button>
 
   
@@ -130,31 +134,53 @@
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
             <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+              <div class="sidebar-start-items"><form
+  class="search"
+  action="../search.html"
+  method="get"
+>
+  <input
+    type="search"
+    name="q"
+    placeholder="search"
+    aria-label="search"
+    autocomplete="off"
+  />
+
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8.32001 7.67998L0.746674 15.2533M10.6667 9.59998C13.0133 9.59998 14.9333 7.67998 14.9333 5.33332C14.9333 2.98665 13.0133 1.06665 10.6667 1.06665C8.32001 1.06665 6.40001 2.98665 6.40001 5.33332C6.40001 7.67998 8.32001 9.59998 10.6667 9.59998Z"
+      stroke="black"
+      stroke-width="2"
+    />
+  </svg>
+  </button>
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active has-children">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <img src="../_static/icons/sidebar-triangle.png"/>
+  </label>
   <a class="reference internal" href="modules.html">
    Modules
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
   <ul class="current">
    <li class="toctree-l2 has-children">
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <img src="../_static/icons/sidebar-triangle.png"/>
+    </label>
     <a class="reference internal" href="napari.layers.html">
      napari.layers
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-    <label for="toctree-checkbox-2">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="napari.layers.Image.html">
@@ -199,14 +225,13 @@
     </ul>
    </li>
    <li class="toctree-l2 has-children">
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <img src="../_static/icons/sidebar-triangle.png"/>
+    </label>
     <a class="reference internal" href="napari.view_layers.html">
      napari.view_layers
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-    <label for="toctree-checkbox-3">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="napari.view_layers.Dims.html">
@@ -221,14 +246,13 @@
     </ul>
    </li>
    <li class="toctree-l2 has-children">
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <img src="../_static/icons/sidebar-triangle.png"/>
+    </label>
     <a class="reference internal" href="napari.types.html">
      napari.types
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-    <label for="toctree-checkbox-4">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="napari.types.ArrayBase.html">
@@ -263,14 +287,13 @@
     </ul>
    </li>
    <li class="toctree-l2 has-children">
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <img src="../_static/icons/sidebar-triangle.png"/>
+    </label>
     <a class="reference internal" href="napari.utils.html">
      napari.utils
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-    <label for="toctree-checkbox-5">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="napari.utils.Colormap.html">
@@ -290,14 +313,13 @@
     </ul>
    </li>
    <li class="toctree-l2 has-children">
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <img src="../_static/icons/sidebar-triangle.png"/>
+    </label>
     <a class="reference internal" href="napari.plugins.html">
      napari.plugins
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="napari.plugins.NapariPluginManager.html">
@@ -322,14 +344,13 @@
     </ul>
    </li>
    <li class="toctree-l2 current active has-children">
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <img src="../_static/icons/sidebar-triangle.png"/>
+    </label>
     <a class="current reference internal" href="#">
      napari.components
     </a>
-    <input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-    <label for="toctree-checkbox-7">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="napari.components.Camera.html">
@@ -354,14 +375,13 @@
     </ul>
    </li>
    <li class="toctree-l2 has-children">
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <img src="../_static/icons/sidebar-triangle.png"/>
+    </label>
     <a class="reference internal" href="napari.qt.threading.html">
      napari.qt.threading
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-    <label for="toctree-checkbox-8">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="napari.qt.threading.FunctionWorker.html">
@@ -391,14 +411,13 @@
     </ul>
    </li>
    <li class="toctree-l2 has-children">
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <img src="../_static/icons/sidebar-triangle.png"/>
+    </label>
     <a class="reference internal" href="napari.utils.perf.html">
      napari.utils.perf
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-    <label for="toctree-checkbox-9">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="napari.utils.perf.PerfEvent.html">
@@ -408,14 +427,13 @@
     </ul>
    </li>
    <li class="toctree-l2 has-children">
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <img src="../_static/icons/sidebar-triangle.png"/>
+    </label>
     <a class="reference internal" href="napari.html">
      napari
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-    <label for="toctree-checkbox-10">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="napari.Viewer.html">
@@ -459,7 +477,7 @@
               <div class="toc-item">
                 
 <div class="tocsection onthispage mt-5 pt-1 pb-3">
-    <i class="fas fa-list"></i> On this page
+    On this page
 </div>
 
 <nav id="bd-toc-nav">
@@ -538,7 +556,19 @@ layer-related controls.</p>
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="napari.plugins.PluginManifest.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
+        <svg
+            width="10"
+            height="16"
+            viewBox="0 0 10 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M8.92892 1L1.85786 8.07107L8.92892 15.1421"
+                stroke="black"
+                stroke-width="2"
+            />
+        </svg>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">napari.plugins.PluginManifest</p>
@@ -549,7 +579,20 @@ layer-related controls.</p>
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">napari.components.Camera</p>
     </div>
-    <i class="fas fa-angle-right"></i>
+
+    <svg
+        width="10"
+        height="16"
+        viewBox="0 0 10 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M1.07108 15L8.14214 7.92893L1.07108 0.857864"
+            stroke="black"
+            stroke-width="2"
+        />
+    </svg>
     </a>
 </div>
               
@@ -561,7 +604,8 @@ layer-related controls.</p>
 
     <script src="../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">
   
-  <a href="/">
+    <div class="footer-item">
+      <a href="/">
   <svg
   width="30"
   height="30"
@@ -825,6 +869,26 @@ layer-related controls.</p>
 </svg>
   <span>Zulip</span>
 </a>
+    </div>
+  
+    <div class="footer-item">
+      <div class="napari-copyright">
+  <p class="copyright">
+        Copyright 2022, The napari team<br>
+  </p>
+
+  <div class="sphinx-version">
+    <div class="sphinx-link">
+      <span>Created using</span>
+      <a href="http://sphinx-doc.org/">Sphinx</a>
+    </div>
+
+    
+      <span>4.4.0</span>
+    
+  </div>
+</div>
+    </div>
   
 </footer>
   </body>
