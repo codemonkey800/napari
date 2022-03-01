@@ -13,7 +13,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
@@ -50,16 +51,10 @@
 
   <div id="navbar-start">
     
-    
-
-<a class="navbar-brand" href="../index.html">
-  <img src="../_static/logo.png" class="logo" alt="logo">
-</a>
-
-
-    
     <!-- A small template snippet for theme testing -->
-<b>napari</b>
+<a class="navbar-brand" href="../index.html">
+  napari
+</a>
     
   </div>
 
@@ -128,13 +123,12 @@
     </nav>
     
 
-    <div class="container-xl">
-      <div class="row">
+    <div class="napari-page">
+        
           
-            
-            <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><form
+          <!-- Only show if we have sidebars configured, else just a small margin  -->
+          <div class="bd-sidebar">
+            <div class="sidebar-start-items"><form
   class="search"
   action="../search.html"
   method="get"
@@ -222,19 +216,19 @@
 
   </div>
 </nav>
-              </div>
-              <div class="sidebar-end-items">
-              </div>
             </div>
-            
+            <div class="sidebar-end-items">
+            </div>
+          </div>
           
+        
 
+        
+        <div class="bd-toc">
           
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
             
+            <div class="toc-item">
               
-              <div class="toc-item">
-                
 <div class="tocsection onthispage mt-5 pt-1 pb-3">
     On this page
 </div>
@@ -254,24 +248,24 @@
 </ul>
 
 </nav>
-              </div>
-              
-              <div class="toc-item">
-                
-              </div>
-              
+            </div>
             
-          </div>
+            <div class="toc-item">
+              
+            </div>
+            
           
+        </div>
+        
 
+        
+        
           
-          
+        
+        <main class="col-md-9 col-xl-7 bd-content" role="main">
             
-          
-          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+            <div>
               
-              <div>
-                
   <div class="tex2jax_ignore mathjax_ignore section" id="manifest-reference">
 <span id="plugin-manifest"></span><h1>Manifest Reference<a class="headerlink" href="#manifest-reference" title="Permalink to this headline">¶</a></h1>
 <div class="admonition important">
@@ -345,8 +339,8 @@ more than a single contribution type).</p>
 manifest formats, though YAML is the “default” and more common format.</p>
 </div>
 <div class="tabbed-set docutils">
-<input checked="checked" id="914b3227-2c6d-4824-968b-ff336b6aac42" name="cd7b865a-255a-4367-8ced-7e7fde75e28a" type="radio">
-</input><label class="tabbed-label" for="914b3227-2c6d-4824-968b-ff336b6aac42">
+<input checked="checked" id="a9ca6de5-e529-4612-9948-8e306eae8d51" name="e665e521-7de9-4c0b-97a8-11f6c06e4c5b" type="radio">
+</input><label class="tabbed-label" for="a9ca6de5-e529-4612-9948-8e306eae8d51">
 yaml</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example-plugin</span><span class="w"></span>
 <span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Example Plugin</span><span class="w"></span>
@@ -417,8 +411,8 @@ yaml</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="5b3cfffb-5d95-4582-b28f-d618ae2ddc0f" name="cd7b865a-255a-4367-8ced-7e7fde75e28a" type="radio">
-</input><label class="tabbed-label" for="5b3cfffb-5d95-4582-b28f-d618ae2ddc0f">
+<input id="6beb20f4-635c-4ddc-bfd4-9643e23d060a" name="e665e521-7de9-4c0b-97a8-11f6c06e4c5b" type="radio">
+</input><label class="tabbed-label" for="6beb20f4-635c-4ddc-bfd4-9643e23d060a">
 toml</label><div class="tabbed-content docutils">
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">display_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;Example Plugin&#39;</span><span class="w"></span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;example-plugin&#39;</span><span class="w"></span>
@@ -515,10 +509,10 @@ toml</label><div class="tabbed-content docutils">
 </div>
 
 
-              </div>
-              
-              
-              <!-- Previous / next buttons -->
+            </div>
+            
+            
+            <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="first_plugin.html" title="previous page">
         <svg
@@ -560,11 +554,10 @@ toml</label><div class="tabbed-content docutils">
     </svg>
     </a>
 </div>
-              
-          </main>
-          
+            
+        </main>
+        
 
-      </div>
     </div>
 
     <script src="../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">

@@ -13,7 +13,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
@@ -50,16 +51,10 @@
 
   <div id="navbar-start">
     
-    
-
-<a class="navbar-brand" href="../index.html">
-  <img src="../_static/logo.png" class="logo" alt="logo">
-</a>
-
-
-    
     <!-- A small template snippet for theme testing -->
-<b>napari</b>
+<a class="navbar-brand" href="../index.html">
+  napari
+</a>
     
   </div>
 
@@ -128,13 +123,12 @@
     </nav>
     
 
-    <div class="container-xl">
-      <div class="row">
+    <div class="napari-page">
+        
           
-            
-            <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><form
+          <!-- Only show if we have sidebars configured, else just a small margin  -->
+          <div class="bd-sidebar">
+            <div class="sidebar-start-items"><form
   class="search"
   action="../search.html"
   method="get"
@@ -486,84 +480,184 @@
 
   </div>
 </nav>
-              </div>
-              <div class="sidebar-end-items">
-              </div>
             </div>
-            
+            <div class="sidebar-end-items">
+            </div>
+          </div>
           
+        
 
+        
+        <div class="bd-toc">
           
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
             
+            <div class="toc-item">
               
-              <div class="toc-item">
-                
 <div class="tocsection onthispage mt-5 pt-1 pb-3">
     On this page
 </div>
 
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#determining-the-version">
-   Determining the version
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Release guide
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#generating-release-notes">
-   Generating release notes
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#timeline">
+   Timeline
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#update-translation-strings">
-   Update translation strings
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#release-management">
+   Release management
   </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#two-weeks-before-release-one-week-before-release-candidate">
+     Two weeks before release (one week before release candidate)
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nine-days-before-release-two-days-before-release-candidate">
+     Nine days before release (two days before release candidate)
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#one-week-before-release">
+     One week before release
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-week-before-release">
+     The week before release
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-day-of-release">
+     The day of release
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tagging-the-new-release-candidate">
-   Tagging the new release candidate
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#release-process">
+   Release process
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#testing-the-release-candidate">
-   Testing the release candidate
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#generating-the-actual-release">
-   Generating the actual release
-  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#determining-the-version">
+     Determining the version
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generating-release-notes">
+     Generating release notes
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#update-translation-strings">
+     Update translation strings
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tagging-the-new-release-candidate">
+     Tagging the new release candidate
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#testing-the-release-candidate">
+     Testing the release candidate
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generating-the-actual-release">
+     Generating the actual release
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
 </nav>
-              </div>
-              
-              <div class="toc-item">
-                
-              </div>
-              
+            </div>
             
-          </div>
+            <div class="toc-item">
+              
+            </div>
+            
           
+        </div>
+        
 
+        
+        
           
-          
+        
+        <main class="col-md-9 col-xl-7 bd-content" role="main">
             
-          
-          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+            <div>
               
-              <div>
-                
   <div class="tex2jax_ignore mathjax_ignore section" id="release-guide">
 <h1>Release guide<a class="headerlink" href="#release-guide" title="Permalink to this headline">¶</a></h1>
 <p>This guide documents <code class="docutils literal notranslate"><span class="pre">napari</span></code>’s release process.
 Currently, it only handles distribution, but as the project matures,
 it will include generating release notes, documentation, etc.</p>
-<p>This is mainly meant for the core developers who will actually be performing the release.
-They will need to have a <a class="reference external" href="https://pypi.org">PyPI</a> account with upload permissions to the <code class="docutils literal notranslate"><span class="pre">napari</span></code> package.</p>
-<p>You will also need the additional <code class="docutils literal notranslate"><span class="pre">release</span></code> dependencies (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[release]</span></code>) to complete the release process.</p>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="timeline">
+<h1>Timeline<a class="headerlink" href="#timeline" title="Permalink to this headline">¶</a></h1>
+<p>New versions of <code class="docutils literal notranslate"><span class="pre">napari</span></code> will be released every two months. The first release candidate will be available one week prior to release for testing purposes. Multiple release candidates may become available during the week prior to release. Upcoming releases can be found in our public calendar.</p>
+<p>The latest release candidate can be installed with</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--pre</span> <span class="pre">napari</span></code></p>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="release-management">
+<h1>Release management<a class="headerlink" href="#release-management" title="Permalink to this headline">¶</a></h1>
+<p>The release will be coordinated by a release manager whose responsibilities include…</p>
+<div class="section" id="two-weeks-before-release-one-week-before-release-candidate">
+<h2>Two weeks before release (one week before release candidate)<a class="headerlink" href="#two-weeks-before-release-one-week-before-release-candidate" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Look through currently open PRs and get a sense of what would be good to merge before the first release candidate</p></li>
+<li><p>Create a zulip thread in the release channel letting people know the release candidate is coming and pointing out PRs that would be nice to merge before release</p></li>
+</ul>
+<p>At this stage, bug fixes and features that are close to landing should be prioritized. The release manager will follow up with PR authors, reviewing and merging as needed.</p>
+</div>
+<div class="section" id="nine-days-before-release-two-days-before-release-candidate">
+<h2>Nine days before release (two days before release candidate)<a class="headerlink" href="#nine-days-before-release-two-days-before-release-candidate" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Generate release notes with the script in the release folder</p></li>
+<li><p>Fill in the release highlights and make a PR with the release notes</p></li>
+</ul>
+<p>At this point the release manager should ideally be the only person merging PRs on the repo for the next week.</p>
+</div>
+<div class="section" id="one-week-before-release">
+<h2>One week before release<a class="headerlink" href="#one-week-before-release" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add any recently merged PRs to release notes</p></li>
+<li><p>Merge release notes</p></li>
+<li><p>Make the release candidate</p></li>
+<li><p>Announce to release stream on zulip that the first release candidate is available for testing</p></li>
+</ul>
+</div>
+<div class="section" id="the-week-before-release">
+<h2>The week before release<a class="headerlink" href="#the-week-before-release" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Merge any PRs and update release notes accordingly</p></li>
+<li><p>Make new release candidates as necessary and announce them on zulip</p></li>
+</ul>
+<p>At this stage PRs merged should focus mainly on regressions and bug fixes. New features should wait until after release.</p>
+</div>
+<div class="section" id="the-day-of-release">
+<h2>The day of release<a class="headerlink" href="#the-day-of-release" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>make sure final rc has been tested</p></li>
+<li><p>ensure all PRs have been added to release notes and then make release and announce on zulip</p></li>
+</ul>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="release-process">
+<h1>Release process<a class="headerlink" href="#release-process" title="Permalink to this headline">¶</a></h1>
+<p>Additional <code class="docutils literal notranslate"><span class="pre">release</span></code> dependencies (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[release]</span></code>) are required to complete the release process.</p>
 <blockquote>
 <div><p><a class="reference external" href="https://github.com/napari/napari/blob/main/MANIFEST.in"><code class="docutils literal notranslate"><span class="pre">MANIFEST.in</span></code></a> determines which non-Python files are included.
 Make sure to check that all necessary ones are listed before beginning the release process.</p>
@@ -671,10 +765,10 @@ git push upstream --tags
 </div>
 
 
-              </div>
-              
-              
-              <!-- Previous / next buttons -->
+            </div>
+            
+            
+            <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="profiling.html" title="previous page">
         <svg
@@ -716,11 +810,10 @@ git push upstream --tags
     </svg>
     </a>
 </div>
-              
-          </main>
-          
+            
+        </main>
+        
 
-      </div>
     </div>
 
     <script src="../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">

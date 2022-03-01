@@ -13,7 +13,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/napari-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
@@ -50,16 +51,10 @@
 
   <div id="navbar-start">
     
-    
-
-<a class="navbar-brand" href="../index.html">
-  <img src="../_static/logo.png" class="logo" alt="logo">
-</a>
-
-
-    
     <!-- A small template snippet for theme testing -->
-<b>napari</b>
+<a class="navbar-brand" href="../index.html">
+  napari
+</a>
     
   </div>
 
@@ -128,13 +123,12 @@
     </nav>
     
 
-    <div class="container-xl">
-      <div class="row">
+    <div class="napari-page">
+        
           
-            
-            <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><form
+          <!-- Only show if we have sidebars configured, else just a small margin  -->
+          <div class="bd-sidebar">
+            <div class="sidebar-start-items"><form
   class="search"
   action="../search.html"
   method="get"
@@ -222,19 +216,19 @@
 
   </div>
 </nav>
-              </div>
-              <div class="sidebar-end-items">
-              </div>
             </div>
-            
+            <div class="sidebar-end-items">
+            </div>
+          </div>
           
+        
 
+        
+        <div class="bd-toc">
           
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
             
+            <div class="toc-item">
               
-              <div class="toc-item">
-                
 <div class="tocsection onthispage mt-5 pt-1 pb-3">
     On this page
 </div>
@@ -337,24 +331,24 @@
 </ul>
 
 </nav>
-              </div>
-              
-              <div class="toc-item">
-                
-              </div>
-              
+            </div>
             
-          </div>
+            <div class="toc-item">
+              
+            </div>
+            
           
+        </div>
+        
 
+        
+        
           
-          
+        
+        <main class="col-md-9 col-xl-7 bd-content" role="main">
             
-          
-          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+            <div>
               
-              <div>
-                
   <div class="tex2jax_ignore mathjax_ignore section" id="your-first-plugin">
 <h1>Your First Plugin<a class="headerlink" href="#your-first-plugin" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial, we’ll step through the fundamental concepts for building a
@@ -405,16 +399,16 @@ and navigate into it.</p>
 <p>In your root <code class="docutils literal notranslate"><span class="pre">napari-hello</span></code> folder, create a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> and <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file,
 then create a <code class="docutils literal notranslate"><span class="pre">napari_hello</span></code> directory with a single <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file inside of it.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="c517df0b-d895-4d56-9046-e3825dae3992" name="5127746b-af9a-400a-bd94-db48f6dd553d" type="radio">
-</input><label class="tabbed-label" for="c517df0b-d895-4d56-9046-e3825dae3992">
+<input checked="checked" id="9f493e6d-dc85-4afa-a6de-019b9b526c21" name="fc6ad679-21d8-456d-8baa-801425de001e" type="radio">
+</input><label class="tabbed-label" for="9f493e6d-dc85-4afa-a6de-019b9b526c21">
 macOS / Linux</label><div class="tabbed-content docutils">
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir napari_hello
 touch napari_hello/__init__.py pyproject.toml setup.cfg
 </pre></div>
 </div>
 </div>
-<input id="59b22c40-413f-46ae-9872-b1d785bbef30" name="5127746b-af9a-400a-bd94-db48f6dd553d" type="radio">
-</input><label class="tabbed-label" for="59b22c40-413f-46ae-9872-b1d785bbef30">
+<input id="a7289c78-3fa1-48e9-984d-68e23e8d271e" name="fc6ad679-21d8-456d-8baa-801425de001e" type="radio">
+</input><label class="tabbed-label" for="a7289c78-3fa1-48e9-984d-68e23e8d271e">
 Windows</label><div class="tabbed-content docutils">
 <div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">mkdir</span> napari_hello
 <span class="k">copy</span> /b napari_hello\__init__.py +,,
@@ -627,10 +621,10 @@ when you’re ready to share your plugin, see <a class="reference internal" href
 </div>
 
 
-              </div>
-              
-              
-              <!-- Previous / next buttons -->
+            </div>
+            
+            
+            <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="find_and_install_plugin.html" title="previous page">
         <svg
@@ -672,11 +666,10 @@ when you’re ready to share your plugin, see <a class="reference internal" href
     </svg>
     </a>
 </div>
-              
-          </main>
-          
+            
+        </main>
+        
 
-      </div>
     </div>
 
     <script src="../_static/scripts/napari-sphinx-theme.js"></script><footer class="napari-footer">
