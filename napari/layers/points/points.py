@@ -8,11 +8,7 @@ import pandas as pd
 from scipy.stats import gmean
 
 from ...utils.colormaps import Colormap, ValidColormapArg
-from ...utils.colormaps.standardize_color import (
-    get_color_namelist,
-    hex_to_name,
-    rgb_to_hex,
-)
+from ...utils.colormaps.standardize_color import hex_to_name, rgb_to_hex
 from ...utils.events import Event
 from ...utils.events.custom_types import Array
 from ...utils.geometry import project_points_onto_plane, rotate_points
@@ -141,10 +137,11 @@ class Points(Layer):
         Currently, this only applies to dask arrays.
     shading : str, Shading
         Render lighting and shading on points. Options are:
-            * 'none'
-                No shading is added to the points.
-            * 'spherical'
-                Shading and depth buffer are changed to give a 3D spherical look to the points
+
+        * 'none'
+          No shading is added to the points.
+        * 'spherical'
+          Shading and depth buffer are changed to give a 3D spherical look to the points
     experimental_canvas_size_limits : tuple of float
         Lower and upper limits for the size of points in canvas pixels.
     shown : 1-D array of bool
@@ -358,9 +355,9 @@ class Points(Layer):
             shading=Event,
             _antialias=Event,
             experimental_canvas_size_limits=Event,
+            features=Event,
+            feature_defaults=Event,
         )
-
-        self._colors = get_color_namelist()
 
         # Save the point coordinates
         self._data = np.asarray(data)
@@ -374,8 +371,7 @@ class Points(Layer):
 
         self._text = TextManager._from_layer(
             text=text,
-            n_text=len(self.data),
-            properties=self.properties,
+            features=self.features,
         )
 
         self._edge_width_is_relative = False
@@ -472,6 +468,7 @@ class Points(Layer):
             with self._edge.events.blocker_all():
                 with self._face.events.blocker_all():
                     self._feature_table.resize(len(data))
+                    self.text.apply(self.features)
                     if len(data) < cur_npoints:
                         # If there are now fewer points, remove the size and colors of the
                         # extra ones
@@ -527,8 +524,6 @@ class Points(Layer):
                             np.arange(cur_npoints, len(data))
                         )
 
-                        self.text.add(self.current_properties, adding)
-
         self._update_dims()
         self.events.data(value=self.data)
         self._set_editable()
@@ -571,9 +566,9 @@ class Points(Layer):
         self._update_color_manager(
             self._edge, self._feature_table, "edge_color"
         )
-        if self.text.values is not None:
-            self.refresh_text()
+        self.text.refresh(self.features)
         self.events.properties()
+        self.events.features()
 
     @property
     def feature_defaults(self):
@@ -641,6 +636,10 @@ class Points(Layer):
         self._edge._update_current_properties(current_properties)
         self._face._update_current_properties(current_properties)
         self.events.current_properties()
+        self.events.feature_defaults()
+        if update_indices is not None:
+            self.events.properties()
+            self.events.features()
 
     @property
     def text(self) -> TextManager:
@@ -651,16 +650,15 @@ class Points(Layer):
     def text(self, text):
         self._text._update_from_layer(
             text=text,
-            n_text=len(self.data),
-            properties=self.properties,
+            features=self.features,
         )
 
     def refresh_text(self):
         """Refresh the text values.
 
-        This is generally used if the properties were updated without changing the data
+        This is generally used if the features were updated without changing the data
         """
-        self.text.refresh_text(self.properties)
+        self.text.refresh(self.features)
 
     def _get_ndim(self) -> int:
         """Determine number of dimensions of the layer."""
@@ -1146,11 +1144,15 @@ class Points(Layer):
                 'symbol': self.symbol,
                 'edge_width': self.edge_width,
                 'edge_width_is_relative': self.edge_width_is_relative,
-                'face_color': self.face_color,
+                'face_color': self.face_color
+                if self.data.size
+                else [self.current_face_color],
                 'face_color_cycle': self.face_color_cycle,
                 'face_colormap': self.face_colormap.name,
                 'face_contrast_limits': self.face_contrast_limits,
-                'edge_color': self.edge_color,
+                'edge_color': self.edge_color
+                if self.data.size
+                else [self.current_edge_color],
                 'edge_color_cycle': self.edge_color_cycle,
                 'edge_colormap': self.edge_colormap.name,
                 'edge_contrast_limits': self.edge_contrast_limits,
@@ -1203,7 +1205,12 @@ class Points(Layer):
             with self.block_update_properties():
                 self.current_face_color = face_color
 
-        size = list({self.size[i, self._dims_displayed].mean() for i in index})
+        # Calculate the mean size across the displayed dimensions for
+        # each point to be consistent with `_view_size`.
+        mean_size = np.mean(
+            self.size[np.ix_(index, self._dims_displayed)], axis=1
+        )
+        size = np.unique(mean_size)
         if len(size) == 1:
             size = size[0]
             with self.block_update_properties():
@@ -1345,6 +1352,9 @@ class Points(Layer):
         text : (N x 1) np.ndarray
             Array of text strings for the N text elements in view
         """
+        # This may be triggered when the string encoding instance changed,
+        # in which case it has no cached values, so generate them here.
+        self.text.string._apply(self.features)
         return self.text.view_text(self._indices_view)
 
     @property
@@ -1361,6 +1371,12 @@ class Points(Layer):
             The vispy text anchor for the y axis
         """
         return self.text.compute_text_coords(self._view_data, self._ndisplay)
+
+    @property
+    def _view_text_color(self) -> np.ndarray:
+        """Get the colors of the text elements at the given indices."""
+        self.text.color._apply(self.features)
+        return self.text._view_color(self._indices_view)
 
     @property
     def _view_size(self) -> np.ndarray:
@@ -1453,10 +1469,15 @@ class Points(Layer):
         """
         # Get a list of the data for the points in this slice
         not_disp = list(self._dims_not_displayed)
-        indices = np.array(dims_indices)
+        # We want a numpy array so we can use fancy indexing with the non-displayed
+        # indices, but as dims_indices can (and often/always does) contain slice
+        # objects, the array has dtype=object which is then very slow for the
+        # arithmetic below. As Points._round_index is always False, we can safely
+        # convert to float to get a major performance improvement.
+        not_disp_indices = np.array(dims_indices)[not_disp].astype(float)
         if len(self.data) > 0:
             if self.out_of_slice_display is True and self.ndim > 2:
-                distances = abs(self.data[:, not_disp] - indices[not_disp])
+                distances = abs(self.data[:, not_disp] - not_disp_indices)
                 sizes = self.size[:, not_disp] / 2
                 matches = np.all(distances <= sizes, axis=1)
                 size_match = sizes[matches]
@@ -1468,7 +1489,7 @@ class Points(Layer):
                 return slice_indices, scale
             else:
                 data = self.data[:, not_disp]
-                distances = np.abs(data - indices[not_disp])
+                distances = np.abs(data - not_disp_indices)
                 matches = np.all(distances <= 0.5, axis=1)
                 slice_indices = np.where(matches)[0].astype(int)
                 return slice_indices, 1
@@ -1651,7 +1672,18 @@ class Points(Layer):
         """Sets the view given the indices to slice with."""
         # get the indices of points in view
         indices, scale = self._slice_data(self._slice_indices)
-        self._view_size_scale = scale
+
+        # Update the _view_size_scale in accordance to the self._indices_view setter.
+        # If out_of_slice_display is False, scale is a number and not an array.
+        # Therefore we have an additional if statement checking for
+        # self._view_size_scale being an integer.
+        if not isinstance(scale, np.ndarray):
+            self._view_size_scale = scale
+        elif len(self._shown) == 0:
+            self._view_size_scale = np.empty(0, int)
+        else:
+            self._view_size_scale = scale[self.shown[indices]]
+
         self._indices_view = np.array(indices, dtype=int)
         # get the selected points that are in view
         self._selected_view = list(
@@ -1797,8 +1829,7 @@ class Points(Layer):
             with self._face.events.blocker_all():
                 self._face._remove(indices_to_remove=index)
             self._feature_table.remove(index)
-            with self.text.events.blocker_all():
-                self.text.remove(index)
+            self.text.remove(index)
             if self._value in self.selected_data:
                 self._value = None
             else:
@@ -1857,6 +1888,11 @@ class Points(Layer):
             self._size = np.append(
                 self.size, deepcopy(self._clipboard['size']), axis=0
             )
+
+            self._feature_table.append(self._clipboard['features'])
+
+            self.text._paste(**self._clipboard['text'])
+
             self._edge_width = np.append(
                 self.edge_width,
                 deepcopy(self._clipboard['edge_width']),
@@ -1875,20 +1911,12 @@ class Points(Layer):
                 ),
             )
 
-            self._feature_table.append(self._clipboard['features'])
-
             self._selected_view = list(
                 range(npoints, npoints + len(self._clipboard['data']))
             )
             self._selected_data = set(
                 range(totpoints, totpoints + len(self._clipboard['data']))
             )
-
-            if len(self._clipboard['text']) > 0:
-                self.text.values = np.concatenate(
-                    (self.text.values, self._clipboard['text']), axis=0
-                )
-
             self.refresh()
 
     def _copy_data(self):
@@ -1904,14 +1932,8 @@ class Points(Layer):
                 'edge_width': deepcopy(self.edge_width[index]),
                 'features': deepcopy(self.features.iloc[index]),
                 'indices': self._slice_indices,
+                'text': self.text._copy(index),
             }
-
-            if len(self.text.values) == 0:
-                self._clipboard['text'] = np.empty(0)
-
-            else:
-                self._clipboard['text'] = deepcopy(self.text.values[index])
-
         else:
             self._clipboard = {}
 

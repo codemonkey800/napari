@@ -8,6 +8,7 @@ from qtpy.QtGui import QImage, QPixmap
 from qtpy.QtWidgets import QHBoxLayout, QLabel, QPushButton, QWidget
 from superqt import QDoubleRangeSlider
 
+from ...utils._dtype import normalize_dtype
 from ...utils.colormaps import AVAILABLE_COLORMAPS
 from ...utils.events.event_utils import connect_no_arg, connect_setattr
 from ...utils.translations import trans
@@ -75,6 +76,9 @@ class QtBaseImageControls(QtLayerControls):
         self.layer.events.contrast_limits.connect(
             self._on_contrast_limits_change
         )
+        self.layer.events.contrast_limits_range.connect(
+            self._on_contrast_limits_range_change
+        )
 
         comboBox = QtColormapComboBox(self)
         comboBox.setObjectName("colormapComboBox")
@@ -141,15 +145,28 @@ class QtBaseImageControls(QtLayerControls):
     def _on_contrast_limits_change(self):
         """Receive layer model contrast limits change event and update slider."""
         with qt_signals_blocked(self.contrastLimitsSlider):
-            self.contrastLimitsSlider.setRange(
-                *self.layer.contrast_limits_range
-            )
             self.contrastLimitsSlider.setValue(self.layer.contrast_limits)
 
         if self.clim_popup:
-            self.clim_popup.slider.setRange(*self.layer.contrast_limits_range)
             with qt_signals_blocked(self.clim_popup.slider):
                 self.clim_popup.slider.setValue(self.layer.contrast_limits)
+
+    def _on_contrast_limits_range_change(self):
+        """Receive layer model contrast limits change event and update slider."""
+        with qt_signals_blocked(self.contrastLimitsSlider):
+            decimals = range_to_decimals(
+                self.layer.contrast_limits_range, self.layer.dtype
+            )
+            self.contrastLimitsSlider.setRange(
+                *self.layer.contrast_limits_range
+            )
+            self.contrastLimitsSlider.setSingleStep(10**-decimals)
+
+        if self.clim_popup:
+            with qt_signals_blocked(self.clim_popup.slider):
+                self.clim_popup.slider.setRange(
+                    *self.layer.contrast_limits_range
+                )
 
     def _on_colormap_change(self):
         """Receive layer model colormap change event and update dropdown menu."""
@@ -246,7 +263,7 @@ class QContrastLimitsPopup(QRangeSliderPopup):
         # the "full range" button doesn't do anything if it's not an
         # unsigned integer type (it's unclear what range should be set)
         # so we don't show create it at all.
-        if np.issubdtype(layer.dtype, np.integer):
+        if np.issubdtype(normalize_dtype(layer.dtype), np.integer):
             range_btn = QPushButton("full range")
             range_btn.setObjectName("full_clim_range_button")
             range_btn.setToolTip(

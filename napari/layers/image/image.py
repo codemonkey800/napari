@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import types
 import warnings
-from typing import TYPE_CHECKING, Sequence, Union
+from typing import TYPE_CHECKING, List, Sequence, Union
 
 import numpy as np
 from scipy import ndimage as ndi
@@ -13,6 +13,8 @@ from ...utils import config
 from ...utils._dtype import get_dtype_limits, normalize_dtype
 from ...utils.colormaps import AVAILABLE_COLORMAPS
 from ...utils.events import Event
+from ...utils.events.event import WarningEmitter
+from ...utils.migrations import rename_argument
 from ...utils.naming import magic_name
 from ...utils.translations import trans
 from .._data_protocols import LayerDataProtocol
@@ -209,6 +211,7 @@ class _ImageBase(IntensityVisualizationMixin, Layer):
 
     _colormaps = AVAILABLE_COLORMAPS
 
+    @rename_argument("interpolation", "interpolation2d", "0.6.0")
     def __init__(
         self,
         data,
@@ -217,7 +220,8 @@ class _ImageBase(IntensityVisualizationMixin, Layer):
         colormap='gray',
         contrast_limits=None,
         gamma=1,
-        interpolation='nearest',
+        interpolation2d='nearest',
+        interpolation3d='linear',
         rendering='mip',
         iso_threshold=0.5,
         attenuation=0.05,
@@ -256,8 +260,15 @@ class _ImageBase(IntensityVisualizationMixin, Layer):
             data = MultiScaleData(data)
 
         # Determine if rgb
-        if rgb is None:
-            rgb = guess_rgb(data.shape)
+        rgb_guess = guess_rgb(data.shape)
+        if rgb and not rgb_guess:
+            raise ValueError(
+                trans._(
+                    "'rgb' was set to True but data does not have suitable dimensions."
+                )
+            )
+        elif rgb is None:
+            rgb = rgb_guess
 
         # Determine dimensionality of the data
         ndim = len(data.shape)
@@ -284,7 +295,15 @@ class _ImageBase(IntensityVisualizationMixin, Layer):
 
         self.events.add(
             mode=Event,
-            interpolation=Event,
+            interpolation=WarningEmitter(
+                trans._(
+                    "'layer.events.interpolation' is deprecated please use `interpolation2d` and `interpolation3d`",
+                    deferred=True,
+                ),
+                type='select',
+            ),
+            interpolation2d=Event,
+            interpolation3d=Event,
             rendering=Event,
             depiction=Event,
             iso_threshold=Event,
@@ -340,17 +359,17 @@ class _ImageBase(IntensityVisualizationMixin, Layer):
         else:
             self.contrast_limits_range = contrast_limits
         self._contrast_limits = tuple(self.contrast_limits_range)
-        self.colormap = colormap
+        # using self.colormap = colormap uses the setter in *derived* classes,
+        # where the intention here is to use the base setter, so we use the
+        # _set_colormap method. This is important for Labels layers, because
+        # we don't want to use get_color before set_view_slice has been
+        # triggered (self._update_dims(), below).
+        self._set_colormap(colormap)
         self.contrast_limits = self._contrast_limits
-        self._interpolation = {
-            2: Interpolation.NEAREST,
-            3: (
-                Interpolation3D.NEAREST
-                if self.__class__.__name__ == 'Labels'
-                else Interpolation3D.LINEAR
-            ),
-        }
-        self.interpolation = interpolation
+        self._interpolation2d = Interpolation.NEAREST
+        self._interpolation3d = Interpolation3D.NEAREST
+        self.interpolation2d = interpolation2d
+        self.interpolation3d = interpolation3d
         self.rendering = rendering
         self.depiction = depiction
         if plane is not None:
@@ -392,6 +411,10 @@ class _ImageBase(IntensityVisualizationMixin, Layer):
         return self._slice.image.view
 
     def _calc_data_range(self, mode='data'):
+        """
+        Calculate the range of the data values in the currently viewed slice
+        or full data array
+        """
         if mode == 'data':
             input_data = self.data[-1] if self.multiscale else self.data
         elif mode == 'slice':
@@ -515,18 +538,53 @@ class _ImageBase(IntensityVisualizationMixin, Layer):
         str
             The current interpolation mode
         """
-        return str(self._interpolation[self._ndisplay])
+        warnings.warn(
+            trans._(
+                "Interpolation attribute is deprecated. Please use interpolation2d or interpolation3d",
+            ),
+            category=DeprecationWarning,
+            stacklevel=2,
+        )
+        return str(
+            self._interpolation2d
+            if self._ndisplay == 2
+            else self._interpolation3d
+        )
 
     @interpolation.setter
     def interpolation(self, interpolation):
         """Set current interpolation mode."""
+        warnings.warn(
+            trans._(
+                "Interpolation setting is deprecated. Please use interpolation2d or interpolation3d",
+            ),
+            category=DeprecationWarning,
+            stacklevel=2,
+        )
         if self._ndisplay == 3:
-            self._interpolation[self._ndisplay] = Interpolation3D(
-                interpolation
-            )
+            self.interpolation3d = interpolation
         else:
-            self._interpolation[self._ndisplay] = Interpolation(interpolation)
-        self.events.interpolation(value=self._interpolation[self._ndisplay])
+            self.interpolation2d = interpolation
+
+    @property
+    def interpolation2d(self):
+        return str(self._interpolation2d)
+
+    @interpolation2d.setter
+    def interpolation2d(self, value):
+        self._interpolation2d = Interpolation(value)
+        self.events.interpolation2d(value=self._interpolation2d)
+        self.events.interpolation(value=self._interpolation2d)
+
+    @property
+    def interpolation3d(self):
+        return str(self._interpolation3d)
+
+    @interpolation3d.setter
+    def interpolation3d(self, value):
+        self._interpolation3d = Interpolation3D(value)
+        self.events.interpolation3d(value=self._interpolation3d)
+        self.events.interpolation(value=self._interpolation3d)
 
     @property
     def depiction(self):
@@ -747,9 +805,12 @@ class _ImageBase(IntensityVisualizationMixin, Layer):
             self, image_indices, image, thumbnail_source
         )
         self._load_slice(data)
-        if self._keep_auto_contrast or self._should_calc_clims:
+        if self._should_calc_clims:
+            self.reset_contrast_limits_range()
             self.reset_contrast_limits()
             self._should_calc_clims = False
+        elif self._keep_auto_contrast:
+            self.reset_contrast_limits()
 
     @property
     def _SliceDataClass(self):
@@ -908,8 +969,15 @@ class _ImageBase(IntensityVisualizationMixin, Layer):
         else:
             shape = raw.shape
 
-        if all(0 <= c < s for c, s in zip(coord[self._dims_displayed], shape)):
-            value = raw[tuple(coord[self._dims_displayed])]
+        if self.ndim < len(coord):
+            # handle 3D views of 2D data by omitting extra coordinate
+            offset = len(coord) - len(shape)
+            coord = coord[[d + offset for d in self._dims_displayed]]
+        else:
+            coord = coord[self._dims_displayed]
+
+        if all(0 <= c < s for c, s in zip(coord, shape)):
+            value = raw[tuple(coord)]
         else:
             value = None
 
@@ -917,6 +985,16 @@ class _ImageBase(IntensityVisualizationMixin, Layer):
             value = (self.data_level, value)
 
         return value
+
+    def _get_offset_data_position(self, position: List[float]) -> List[float]:
+        """Adjust position for offset between viewer and data coordinates.
+
+        VisPy considers the coordinate system origin to be the canvas corner,
+        while napari considers the origin to be the **center** of the corner
+        pixel. To get the correct value under the mouse cursor, we need to
+        shift the position by 0.5 pixels on each axis.
+        """
+        return [p + 0.5 for p in position]
 
     # For async we add an on_chunk_loaded() method.
     if config.async_loading:
@@ -987,7 +1065,8 @@ class Image(_ImageBase):
                 'multiscale': self.multiscale,
                 'colormap': self.colormap.name,
                 'contrast_limits': self.contrast_limits,
-                'interpolation': self.interpolation,
+                'interpolation2d': self.interpolation2d,
+                'interpolation3d': self.interpolation3d,
                 'rendering': self.rendering,
                 'depiction': self.depiction,
                 'plane': self.plane.dict(),
@@ -1005,6 +1084,9 @@ if config.async_octree:
 
     class Image(Image, _OctreeImageBase):
         pass
+
+
+Image.__doc__ = _ImageBase.__doc__
 
 
 class _weakref_hide:

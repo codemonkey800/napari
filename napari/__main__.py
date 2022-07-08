@@ -12,24 +12,18 @@ from pathlib import Path
 from textwrap import wrap
 from typing import Any, Dict, List
 
-import napari.plugins._npe2 as _npe2
-
 
 class InfoAction(argparse.Action):
     def __call__(self, *args, **kwargs):
         # prevent unrelated INFO logs when doing "napari --info"
+        from npe2 import cli
+
         from napari.utils import sys_info
 
         logging.basicConfig(level=logging.WARNING)
         print(sys_info())
-        from .plugins import plugin_manager
-
-        plugin_manager.discover_widgets()
-        if errors := plugin_manager.get_errors():
-            names = {e.plugin_name for e in errors}
-            print("\n‼️  Errors were detected in the following plugins:")
-            print("(Run 'napari --plugin-info -v' for more details)")
-            print("\n".join(f"  - {n}" for n in names))
+        print("Plugins:")
+        cli.list(fields="", sort="0", format="compact")
         sys.exit()
 
 
@@ -37,29 +31,13 @@ class PluginInfoAction(argparse.Action):
     def __call__(self, *args, **kwargs):
         # prevent unrelated INFO logs when doing "napari --info"
         logging.basicConfig(level=logging.WARNING)
-        from .plugins import plugin_manager
+        from npe2 import cli
 
-        plugin_manager.discover_widgets()
-        print(plugin_manager)
-
-        if errors := plugin_manager.get_errors():
-            print("‼️  Some errors occurred:")
-            verbose = '-v' in sys.argv or '--verbose' in sys.argv
-            if not verbose:
-                print("   (use '-v') to show full tracebacks")
-            print("-" * 38)
-
-            for err in errors:
-                print(err.plugin_name)
-                print(f"  error: {err!r}")
-                print(f"  cause: {err.__cause__!r}")
-                if verbose:
-                    print("  traceback:")
-                    import traceback
-                    from textwrap import indent
-
-                    tb = traceback.format_tb(err.__cause__.__traceback__)
-                    print(indent("".join(tb), '   '))
+        cli.list(
+            fields="name,version,npe2,contributions",
+            sort="name",
+            format="table",
+        )
         sys.exit()
 
 
@@ -227,7 +205,7 @@ def parse_sys_argv():
 
 
 def _run():
-    from napari import run, view_path
+    from napari import Viewer, run
     from napari.settings import get_settings
 
     """Main program."""
@@ -282,7 +260,7 @@ def _run():
 
     else:
         if args.with_:
-            from .plugins import plugin_manager
+            from .plugins import _npe2, plugin_manager
 
             # if a plugin widget has been requested, this will fail immediately
             # if the requested plugin/widget is not available.
@@ -303,13 +281,14 @@ def _run():
         splash = NapariSplashScreen()
         splash.close()  # will close once event loop starts
 
-        # viewer is unused but _must_  be kept around.
+        # viewer _must_  be kept around.
         # it will be referenced by the global window only
         # once napari has finished starting
         # but in the meantime if the garbage collector runs;
         # it will collect it and hang napari at start time.
         # in a way that is machine, os, time (and likely weather dependant).
-        viewer = view_path(  # noqa: F841
+        viewer = Viewer()
+        viewer._window._qt_viewer._qt_open(
             args.paths,
             stack=args.stack,
             plugin=args.plugin,
@@ -331,7 +310,7 @@ def _run():
             running_as_bundled_app,
         )
 
-        if running_as_bundled_app:
+        if running_as_bundled_app():
             install_certifi_opener()
         run(gui_exceptions=True)
 
@@ -402,10 +381,12 @@ def main():
     import platform
 
     _MACOS_AT_LEAST_CATALINA = (
-        sys.platform == "darwin" and int(platform.release().split('.')[0]) > 19
+        sys.platform == "darwin"
+        and int(platform.release().split('.')[0]) >= 19
     )
     _MACOS_AT_LEAST_BIG_SUR = (
-        sys.platform == "darwin" and int(platform.release().split('.')[0]) > 20
+        sys.platform == "darwin"
+        and int(platform.release().split('.')[0]) >= 20
     )
 
     _RUNNING_CONDA = "CONDA_PREFIX" in os.environ

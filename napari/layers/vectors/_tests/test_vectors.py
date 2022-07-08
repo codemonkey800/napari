@@ -475,7 +475,6 @@ def test_edge_color_map_non_numeric_property():
         layer.edge_color_mode = 'colormap'
 
 
-@pytest.mark.filterwarnings("ignore:elementwise comparis:FutureWarning:numpy")
 def test_switching_edge_color_mode():
     """Test transitioning between all color modes"""
     np.random.seed(0)
@@ -663,3 +662,10 @@ def test_out_of_slice_display():
 
     layer = Vectors(data, out_of_slice_display=True)
     assert layer.out_of_slice_display is True
+
+
+def test_empty_data_from_tuple():
+    """Test that empty data raises an error."""
+    layer = Vectors(name="vector", ndim=3)
+    layer2 = Vectors.create(*layer.as_layer_data_tuple())
+    assert layer2.data.size == 0

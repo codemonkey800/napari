@@ -2,8 +2,10 @@ import os
 import runpy
 from pathlib import Path
 
+import numpy as np
 import pytest
 from qtpy import API_NAME
+import skimage.data
 
 import napari
 from napari._qt.qt_main_window import Window
@@ -11,21 +13,16 @@ from napari.utils.notifications import notification_manager
 
 # not testing these examples
 skip = [
-    'surface_timeseries.py',  # needs nilearn
-    '3d_kymograph.py',  # needs tqdm
-    'live_tiffs.py',  # requires files
-    'tiled-rendering-2d.py',  # too slow
-    'live_tiffs_generator.py',
+    'surface_timeseries_.py',  # needs nilearn
+    '3d_kymograph_.py',  # needs tqdm
+    'live_tiffs_.py',  # requires files
+    'tiled-rendering-2d_.py',  # too slow
+    'live_tiffs_generator_.py',
     'points-over-time.py',  # too resource hungry
-    'embed_ipython.py',  # fails without monkeypatch
-    'custom_key_bindings.py',  # breaks EXPECTED_NUMBER_OF_VIEWER_METHODS later
+    'embed_ipython_.py',  # fails without monkeypatch
     'new_theme.py',  # testing theme is extremely slow on CI
     'dynamic-projections-dask.py',  # extremely slow / does not finish
 ]
-
-
-if os.environ.get('MIN_REQ', '') == '1':
-    skip.extend(['spheres.py', 'clipping_planes_interactive.py'])
 
 EXAMPLE_DIR = Path(napari.__file__).parent.parent / 'examples'
 # using f.name here and re-joining at `run_path()` for test key presentation
@@ -40,16 +37,19 @@ if os.getenv("CI") and os.name == 'nt' and 'to_screenshot.py' in examples:
     examples.remove('to_screenshot.py')
 
 
+@pytest.mark.examples
 @pytest.mark.filterwarnings("ignore")
 @pytest.mark.skipif(not examples, reason="No examples were found.")
 @pytest.mark.parametrize("fname", examples)
-def test_examples(fname, monkeypatch):
+def test_examples(builtins, fname, monkeypatch):
     """Test that all of our examples are still working without warnings."""
 
     # hide viewer window
     monkeypatch.setattr(Window, 'show', lambda *a: None)
     # prevent running the event loop
     monkeypatch.setattr(napari, 'run', lambda *a, **k: None)
+    # Prevent downloading example data because this sometimes fails.
+    monkeypatch.setattr(skimage.data, 'cells3d', lambda: np.zeros((60, 2, 256, 256), dtype=np.uint16))
 
     # make sure our sys.excepthook override doesn't hide errors
     def raise_errors(etype, value, tb):

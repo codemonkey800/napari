@@ -4,13 +4,14 @@ import numpy as np
 import pytest
 
 from napari.components.layerlist import LayerList
-from napari.layers import Image, Labels, Shapes
+from napari.layers import Image, Labels, Points, Shapes
 from napari.layers._layer_actions import (
     _LAYER_ACTIONS,
     ContextAction,
     SubMenu,
     _convert,
     _convert_dtype,
+    _duplicate_layer,
     _project,
 )
 from napari.utils.context._expressions import Expr
@@ -50,6 +51,26 @@ def test_layer_actions():
                 assert_expression_variables(expr, names)
 
 
+def test_duplicate_layers():
+    def _dummy():
+        pass
+
+    layer_list = LayerList()
+    layer_list.append(Points([[0, 0]], name="test"))
+    layer_list.selection.active = layer_list[0]
+    layer_list[0].events.data.connect(_dummy)
+    assert len(layer_list[0].events.data.callbacks) == 2
+    assert len(layer_list) == 1
+    _duplicate_layer(layer_list)
+    assert len(layer_list) == 2
+    assert layer_list[0].name == "test"
+    assert layer_list[1].name == "test copy"
+    assert layer_list[1].events.source is layer_list[1]
+    assert (
+        len(layer_list[1].events.data.callbacks) == 1
+    )  # `events` Event Emitter
+
+
 @pytest.mark.parametrize(
     'mode', ['max', 'min', 'std', 'sum', 'mean', 'median']
 )
@@ -60,8 +81,8 @@ def test_projections(mode):
     assert ll[-1].data.ndim == 3
     _project(ll, mode=mode)
     assert len(ll) == 2
-    # because we use keepdims = True
-    assert ll[-1].data.shape == (1, 8, 8)
+    # because keepdims = False
+    assert ll[-1].data.shape == (8, 8)
 
 
 @pytest.mark.parametrize(
@@ -99,7 +120,10 @@ def test_convert_dtype(mode):
 )
 def test_convert_layer(input, type_):
     ll = LayerList()
+    input.scale *= 1.5
+    original_scale = input.scale.copy()
     ll.append(input)
     assert ll[0]._type_string != type_
     _convert(ll, type_)
     assert ll[0]._type_string == type_
+    assert np.array_equal(ll[0].scale, original_scale)
